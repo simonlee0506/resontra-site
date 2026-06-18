@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Resontra — Your Media Ritual Journal</title>
+  <meta name="description" content="A ritual journal for books, records, and every work of art that stays with you. Beautiful paginated pages, handwriting support, and three-chapter structure."/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--cognac:#6B3A2A;--cognac-mid:#8C4E38;--cognac-light:#FBF4EE;--text:#1a1a1a;--muted:#666;--border:#e8ddd5;--gold:#C5922A}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--text);line-height:1.6}
+    a{color:var(--cognac);text-decoration:none}a:hover{text-decoration:underline}
+    nav{display:flex;justify-content:space-between;align-items:center;padding:16px 40px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:10px;background:#fff}
+    .nav-logo{display:flex;align-items:center;gap:10px}
+    .nav-logo img{width:36px;height:36px;border-radius:8px;object-fit:cover}
+    .nav-logo span{font-size:1.15rem;font-weight:700;color:var(--cognac);letter-spacing:-0.5px}
+    .nav-right{display:flex;align-items:center;gap:24px}
+    .nav-links{display:flex;gap:24px;font-size:0.9rem}
+    .nav-links a{color:var(--muted)}
+    .nav-links a:hover{color:var(--text);text-decoration:none}
+    .lang-switcher{display:flex;gap:5px}
+    .lang-btn{padding:4px 11px;border:1.5px solid var(--cognac);border-radius:14px;background:transparent;color:var(--cognac);font-size:0.78rem;cursor:pointer;transition:background .15s,color .15s}
+    .lang-btn.active{background:var(--cognac);color:#fff}
+    .hero{background:linear-gradient(155deg,#1E0A04 0%,#6B3A2A 60%,#9B5A3A 100%);color:#fff;text-align:center;padding:80px 24px}
+    .hero-icon{width:130px;height:130px;border-radius:20px;margin:0 auto 28px;display:block;object-fit:cover;box-shadow:0 12px 40px rgba(0,0,0,0.5)}
+    .hero-badge{display:inline-block;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.35);border-radius:20px;padding:5px 14px;font-size:0.8rem;letter-spacing:.5px;text-transform:uppercase;margin-bottom:18px}
+    .hero h1{font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;letter-spacing:-1.5px;margin-bottom:16px}
+    .hero p{font-size:clamp(1rem,2.5vw,1.2rem);opacity:.88;max-width:560px;margin:0 auto 36px}
+    .btn-primary{display:inline-block;background:#fff;color:var(--cognac);font-weight:700;font-size:.95rem;padding:14px 30px;border-radius:50px;transition:transform .15s,box-shadow .15s}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2);text-decoration:none}
+    .btn-secondary{display:inline-block;border:1.5px solid rgba(255,255,255,.6);color:#fff;font-size:.9rem;padding:13px 26px;border-radius:50px;margin-left:10px;transition:background .15s}
+    .btn-secondary:hover{background:rgba(255,255,255,.12);text-decoration:none}
+    .hero-price{margin-top:26px;font-size:.84rem;opacity:.65}
+    .section{padding:76px 24px;max-width:1000px;margin:0 auto}
+    .section-title{text-align:center;font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;letter-spacing:-.5px;margin-bottom:12px}
+    .section-sub{text-align:center;color:var(--muted);font-size:1.05rem;margin-bottom:52px}
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+    .feature-card{background:var(--cognac-light);border-radius:16px;padding:30px 26px}
+    .feature-icon{font-size:1.9rem;margin-bottom:12px}
+    .feature-card h3{font-size:1.02rem;font-weight:700;margin-bottom:7px}
+    .feature-card p{font-size:.91rem;color:var(--muted);line-height:1.65}
+    .how-section{background:#f7f3f0;padding:76px 24px}
+    .how-inner{max-width:760px;margin:0 auto}
+    .steps{margin-top:44px}
+    .step{display:flex;gap:22px;align-items:flex-start;padding:26px 0;border-bottom:1px solid var(--border)}
+    .step:last-child{border-bottom:none}
+    .step-num{flex-shrink:0;width:38px;height:38px;background:var(--cognac);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95rem}
+    .step-text h3{font-size:1.02rem;font-weight:700;margin-bottom:5px}
+    .step-text p{font-size:.91rem;color:var(--muted)}
+    .pricing-section{background:var(--cognac);color:#fff;padding:76px 24px;text-align:center}
+    .pricing-section .section-title{color:#fff}
+    .pricing-section .section-sub{color:rgba(255,255,255,.72);margin-bottom:0}
+    .pricing-cards{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:44px}
+    .pricing-card{background:#fff;color:var(--cognac);border:1.5px solid #fff;border-radius:20px;padding:34px 56px;text-align:center}
+    .plan-name{font-size:.82rem;text-transform:uppercase;letter-spacing:.5px;opacity:.6;margin-bottom:9px}
+    .price-val{font-size:2.6rem;font-weight:800;letter-spacing:-1px}
+    .price-period{font-size:.83rem;opacity:.52;margin-top:4px}
+    .trial-note{margin-top:30px;font-size:.86rem;opacity:.68}
+    .promo-section{padding:76px 24px;max-width:900px;margin:0 auto}
+    .promo-section .section-title{margin-bottom:12px}
+    .promo-section .section-sub{margin-bottom:40px}
+    .promo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+    .promo-box{background:#1a1a1a;color:#fff;border-radius:20px;padding:40px 36px;text-align:center}
+    .promo-box h2{font-size:1.3rem;font-weight:800;margin-bottom:12px}
+    .promo-box p{color:rgba(255,255,255,.72);font-size:.92rem;line-height:1.7;max-width:340px;margin:0 auto 26px}
+    .btn-gold{display:inline-block;background:var(--gold);color:#fff;font-weight:700;font-size:.88rem;padding:12px 26px;border-radius:50px;transition:opacity .15s}
+    .btn-gold:hover{opacity:.85;text-decoration:none}
+    .btn-blue{display:inline-block;background:#1668CC;color:#fff;font-weight:700;font-size:.88rem;padding:12px 26px;border-radius:50px;transition:opacity .15s}
+    .btn-blue:hover{opacity:.85;text-decoration:none}
+    footer{border-top:1px solid var(--border);padding:30px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:.84rem;color:var(--muted)}
+    footer a{color:var(--muted)}footer a:hover{color:var(--text)}
+    @media(max-width:600px){nav{padding:14px 18px}.nav-links{gap:14px}footer{padding:22px 18px;flex-direction:column;text-align:center}.btn-secondary{display:none}}
+    .hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;margin-left:8px}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--muted);margin:5px 0;border-radius:2px;transition:.25s}
+    @media(max-width:768px){
+      nav{position:relative;flex-wrap:nowrap}
+      .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);padding:14px 24px;flex-direction:column;gap:14px;z-index:200;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+      .nav-links.open{display:flex}
+      .hamburger{display:block}
+      .nav-right{gap:10px}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <img src="icon.png" alt="Resontra"/>
+    <span>Resontra</span>
+  </div>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#features" data-i18n="nav.features">Features</a>
+      <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+      <a href="privacy.html" data-i18n="nav.privacy">Privacy</a>
+    </div>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="switchLang('en',event)">EN</button>
+      <button class="lang-btn" onclick="switchLang('fr',event)">FR</button>
+      <button class="lang-btn" onclick="switchLang('zh',event)">中文</button>
+    </div>
+    <button class="hamburger" onclick="toggleNav()" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<section class="hero">
+  <img class="hero-icon" src="icon.png" alt="Resontra App Icon"/>
+  <div class="hero-badge" data-i18n="hero.badge">iOS App</div>
+  <h1 data-i18n="hero.title">Write the story of every listen.</h1>
+  <p data-i18n="hero.subtitle">A ritual journal for books, records, and every work of art that stays with you. Each experience gets its own chapter — notes, excerpts, and reflections, all in a beautiful paginated journal.</p>
+  <a href="#" class="btn-primary" data-i18n="hero.cta">Download on the App Store</a>
+  <a href="#features" class="btn-secondary" data-i18n="hero.learn">Learn more</a>
+  <p class="hero-price" data-i18n="hero.price">$9.99 · One-time purchase · 7-day free trial</p>
+</section>
+
+<section class="section" id="features">
+  <h2 class="section-title" data-i18n="features.title">Your journal, your ritual</h2>
+  <p class="section-sub" data-i18n="features.sub">Designed for collectors who want to remember not just what they own, but how it felt.</p>
+  <div class="features-grid">
+    <div class="feature-card"><div class="feature-icon">📖</div><h3 data-i18n="f1.title">Ritual Sessions</h3><p data-i18n="f1.body">Open a session for any book or record. Set the mood, write across beautiful paginated pages, and close with intention.</p></div>
+    <div class="feature-card"><div class="feature-icon">📝</div><h3 data-i18n="f2.title">Three Chapters</h3><p data-i18n="f2.body">Every session organizes itself into Notes, Excerpts, and Reflections — keeping your thoughts structured without any effort.</p></div>
+    <div class="feature-card"><div class="feature-icon">✍️</div><h3 data-i18n="f3.title">Handwriting & Attachments</h3><p data-i18n="f3.body">Write by hand with Apple Pencil, highlight passages, or attach photos and PDFs — all inline within your journal pages.</p></div>
+    <div class="feature-card"><div class="feature-icon">📚</div><h3 data-i18n="f4.title">Real Book Feel</h3><p data-i18n="f4.body">Your journal renders with paper-curl animations, ruled pages, and a leather cover — because the format matters.</p></div>
+    <div class="feature-card"><div class="feature-icon">🔒</div><h3 data-i18n="f5.title">Diary Lock</h3><p data-i18n="f5.body">Protect your most personal entries with a combination dial lock, right on the leather cover.</p></div>
+    <div class="feature-card"><div class="feature-icon">🔗</div><h3 data-i18n="f6.title">Collectra & Fetchera Ready</h3><p data-i18n="f6.body">Import your collection from Collectra or scan in the field with Fetchera — then open Resontra to start writing.</p></div>
+  </div>
+</section>
+
+<section class="how-section">
+  <div class="how-inner">
+    <h2 class="section-title" data-i18n="how.title">The ritual, in three steps</h2>
+    <p class="section-sub" data-i18n="how.sub">Each session is a small ceremony.</p>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text"><h3 data-i18n="s1.title">Open a session</h3><p data-i18n="s1.body">Choose a book or record from your library, set your opening mood, and write a few words on how you feel before you begin.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><h3 data-i18n="s2.title">Write freely</h3><p data-i18n="s2.body">Notes, excerpts, reflections — write across chapters, add handwriting, highlight passages, attach images. Pages reflow automatically.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><h3 data-i18n="s3.title">Close with intention</h3><p data-i18n="s3.body">End each session with a closing mood. Your ritual is complete, preserved in a journal that grows richer with every experience.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing-section" id="pricing">
+  <h2 class="section-title" data-i18n="price.title">One price, forever</h2>
+  <p class="section-sub" data-i18n="price.sub">No subscription. Pay once, write forever.</p>
+  <div class="pricing-cards">
+    <div class="pricing-card">
+      <div class="plan-name" data-i18n="price.plan">Lifetime Access</div>
+      <div class="price-val" data-i18n="price.val">$9.99</div>
+      <div class="price-period" data-i18n="price.period">one-time purchase</div>
+    </div>
+  </div>
+  <p class="trial-note" data-i18n="price.trial">Includes a 7-day free trial — no payment required to start</p>
+</section>
+
+<section class="promo-section">
+  <h2 class="section-title" data-i18n="promo.title">The complete collector's toolkit</h2>
+  <p class="section-sub" data-i18n="promo.sub">Resontra works best alongside its companion apps.</p>
+  <div class="promo-grid">
+    <div class="promo-box">
+      <h2 data-i18n="promo.collectra.title">Collectra</h2>
+      <p data-i18n="promo.collectra.body">The macOS archive for everything you own — books, vinyl, cameras, and more. Resontra imports your collection directly.</p>
+      <a href="https://simonlee0506.github.io/collectra-site/" class="btn-gold" data-i18n="promo.collectra.cta">Discover Collectra →</a>
+    </div>
+    <div class="promo-box">
+      <h2 data-i18n="promo.fetchera.title">Fetchera</h2>
+      <p data-i18n="promo.fetchera.body">The iOS field guide for collectors — scan barcodes at flea markets, check prices, and avoid duplicates. Free to download.</p>
+      <a href="https://simonlee0506.github.io/fetchera-site/" class="btn-blue" data-i18n="promo.fetchera.cta">Discover Fetchera →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Resontra</span>
+  <div style="display:flex;gap:18px">
+    <a href="privacy.html" data-i18n="footer.privacy">Privacy Policy</a>
+    <a href="mailto:liwanmi@gmail.com" data-i18n="footer.contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+const T={
+  en:{
+    "nav.features":"Features","nav.pricing":"Pricing","nav.privacy":"Privacy",
+    "hero.badge":"iOS App","hero.title":"Write the story of every listen.",
+    "hero.subtitle":"A ritual journal for books, records, and every work of art that stays with you. Each experience gets its own chapter — notes, excerpts, and reflections, all in a beautiful paginated journal.",
+    "hero.cta":"Download on the App Store","hero.learn":"Learn more",
+    "hero.price":"$9.99 · One-time purchase · 7-day free trial",
+    "features.title":"Your journal, your ritual",
+    "features.sub":"Designed for collectors who want to remember not just what they own, but how it felt.",
+    "f1.title":"Ritual Sessions","f1.body":"Open a session for any book or record. Set the mood, write across beautiful paginated pages, and close with intention.",
+    "f2.title":"Three Chapters","f2.body":"Every session organizes itself into Notes, Excerpts, and Reflections — keeping your thoughts structured without any effort.",
+    "f3.title":"Handwriting & Attachments","f3.body":"Write by hand with Apple Pencil, highlight passages, or attach photos and PDFs — all inline within your journal pages.",
+    "f4.title":"Real Book Feel","f4.body":"Your journal renders with paper-curl animations, ruled pages, and a leather cover — because the format matters.",
+    "f5.title":"Diary Lock","f5.body":"Protect your most personal entries with a combination dial lock, right on the leather cover.",
+    "f6.title":"Collectra & Fetchera Ready","f6.body":"Import your collection from Collectra or scan in the field with Fetchera — then open Resontra to start writing.",
+    "how.title":"The ritual, in three steps","how.sub":"Each session is a small ceremony.",
+    "s1.title":"Open a session","s1.body":"Choose a book or record from your library, set your opening mood, and write a few words on how you feel before you begin.",
+    "s2.title":"Write freely","s2.body":"Notes, excerpts, reflections — write across chapters, add handwriting, highlight passages, attach images. Pages reflow automatically.",
+    "s3.title":"Close with intention","s3.body":"End each session with a closing mood. Your ritual is complete, preserved in a journal that grows richer with every experience.",
+    "price.title":"One price, forever","price.sub":"No subscription. Pay once, write forever.",
+    "price.plan":"Lifetime Access","price.val":"$9.99","price.period":"one-time purchase",
+    "price.trial":"Includes a 7-day free trial — no payment required to start",
+    "promo.title":"The complete collector’s toolkit","promo.sub":"Resontra works best alongside its companion apps.",
+    "promo.collectra.title":"Collectra","promo.collectra.body":"The macOS archive for everything you own — books, vinyl, cameras, and more. Resontra imports your collection directly.",
+    "promo.collectra.cta":"Discover Collectra →",
+    "promo.fetchera.title":"Fetchera","promo.fetchera.body":"The iOS field guide for collectors — scan barcodes at flea markets, check prices, and avoid duplicates. Free to download.",
+    "promo.fetchera.cta":"Discover Fetchera →",
+    "footer.privacy":"Privacy Policy","footer.contact":"Contact"
+  },
+  fr:{
+    "nav.features":"Fonctionnalités","nav.pricing":"Tarifs","nav.privacy":"Confidentialité",
+    "hero.badge":"Application iOS","hero.title":"Racontez l’histoire de chaque écoute.",
+    "hero.subtitle":"Un journal rituel pour les livres, les disques et toutes les œuvres qui vous marquent. Chaque expérience a son propre chapitre — notes, extraits et réflexions, dans un magnifique journal paginé.",
+    "hero.cta":"Télécharger sur l’App Store","hero.learn":"En savoir plus",
+    "hero.price":"9,99 $ · Achat unique · Essai gratuit 7 jours",
+    "features.title":"Votre journal, votre rituel",
+    "features.sub":"Conçu pour les collectionneurs qui veulent se souvenir non seulement de ce qu’ils possèdent, mais de ce qu’ils ont ressenti.",
+    "f1.title":"Sessions rituelles","f1.body":"Ouvrez une session pour n’importe quel livre ou disque. Définissez votre humeur, écrivez sur de belles pages paginées, et clôturez avec intention.",
+    "f2.title":"Trois chapitres","f2.body":"Chaque session s’organise en Notes, Extraits et Réflexions — sans aucun effort de votre part.",
+    "f3.title":"Écriture & pièces jointes","f3.body":"Écrivez à la main avec l’Apple Pencil, surlignez des passages ou joignez des photos et PDF — directement dans vos pages de journal.",
+    "f4.title":"Une vraie sensation de livre","f4.body":"Votre journal s’affiche avec des animations de tournage de pages, des lignes réglées et une couverture en cuir — parce que le format compte.",
+    "f5.title":"Verrou journal","f5.body":"Protégez vos entrées les plus personnelles avec un cadenas à combinaison, directement sur la couverture en cuir.",
+    "f6.title":"Compatible Collectra & Fetchera","f6.body":"Importez votre collection depuis Collectra ou scannez sur le terrain avec Fetchera — puis ouvrez Resontra pour commencer à écrire.",
+    "how.title":"Le rituel, en trois étapes","how.sub":"Chaque session est une petite cérémonie.",
+    "s1.title":"Ouvrez une session","s1.body":"Choisissez un livre ou un disque dans votre bibliothèque, définissez votre humeur d’ouverture, et écrivez quelques mots sur ce que vous ressentez avant de commencer.",
+    "s2.title":"Écrivez librement","s2.body":"Notes, extraits, réflexions — écrivez dans différents chapitres, ajoutez de l’écriture manuscrite, surlignez des passages, joignez des images. Les pages se réorganisent automatiquement.",
+    "s3.title":"Clôturez avec intention","s3.body":"Terminez chaque session avec une humeur de clôture. Votre rituel est complet, préservé dans un journal qui s’enrichit à chaque expérience.",
+    "price.title":"Un seul prix, pour toujours","price.sub":"Pas d’abonnement. Payez une fois, écrivez pour toujours.",
+    "price.plan":"Accès à vie","price.val":"9,99 $","price.period":"achat unique",
+    "price.trial":"Inclut un essai gratuit de 7 jours — aucun paiement requis pour commencer",
+    "promo.title":"La boîte à outils complète du collectionneur","promo.sub":"Resontra fonctionne mieux avec ses applications compagnes.",
+    "promo.collectra.title":"Collectra","promo.collectra.body":"L’archive macOS pour tout ce que vous possédez — livres, vinyles, appareils photo et plus encore. Resontra importe votre collection directement.",
+    "promo.collectra.cta":"Découvrir Collectra →",
+    "promo.fetchera.title":"Fetchera","promo.fetchera.body":"Le guide terrain iOS pour les collectionneurs — scannez des codes-barres aux marchés aux puces, vérifiez les prix et évitez les doublons. Gratuit.",
+    "promo.fetchera.cta":"Découvrir Fetchera →",
+    "footer.privacy":"Politique de confidentialité","footer.contact":"Contact"
+  },
+  zh:{
+    "nav.features":"功能","nav.pricing":"价格","nav.privacy":"隐私政策",
+    "hero.badge":"iOS 应用","hero.title":"为每一次聆听，留下故事。",
+    "hero.subtitle":"猫给书籍、唱片和一切触动你的作品的仪式日记。每次体验都有自己的章节——笔记、摘录与思考，尽在一本精美的翻页日记里。",
+    "hero.cta":"在 App Store 下载","hero.learn":"了解更多",
+    "hero.price":"$9.99 · 一次性买断 · 7 天免费试用",
+    "features.title":"你的日记，你的仪式",
+    "features.sub":"专为那些不只想记录拥有什么、更想铭记感受的收藏者而生。",
+    "f1.title":"仪式 Session","f1.body":"为任意一本书或唱片开启一次 Session。设定心情，在精美的分页纸面上自由书写，以仪式感作结。",
+    "f2.title":"三个章节","f2.body":"每次 Session 自动分为笔记、摘录与思考三章——无需整理，思绪自然归位。",
+    "f3.title":"手写与附件","f3.body":"用 Apple Pencil 手写，高亮段落，或内联附加照片和 PDF——一切都嵌在日记页面里。",
+    "f4.title":"真实的书本体验","f4.body":"翻页动画、格线纸张、皮面封面——日记的形式本身就是仪式的一部分。",
+    "f5.title":"日记锁","f5.body":"在皮面封面上用组合密码拨轮保护你最私密的记录。",
+    "f6.title":"与 Collectra & Fetchera 联动","f6.body":"从 Collectra 导入藏品，或用 Fetchera 在外扫码——再回到 Resontra 开始书写。",
+    "how.title":"仪式，三步完成","how.sub":"每一次 Session，都是一场小小的仪式。",
+    "s1.title":"开启 Session","s1.body":"从藏品库中选择一本书或唱片，设定开场心情，写下开始前的感受。",
+    "s2.title":"自由书写","s2.body":"笔记、摘录、思考——跨章节书写，添加手写，高亮文字，附加图片。页面自动重排。",
+    "s3.title":"以仪式作结","s3.body":"以收尾心情结束每次 Session。仪式完整，日记随每次体验愈发丰厂。",
+    "price.title":"一次买断，永久使用","price.sub":"无订阅。一次付费，永久书写。",
+    "price.plan":"终身访问","price.val":"$9.99","price.period":"一次性买断",
+    "price.trial":"含 7 天免费试用——开始时无需付款",
+    "promo.title":"收藏者的完整工具链","promo.sub":"Resontra 与旅伴 App 协同使用效果最佳。",
+    "promo.collectra.title":"Collectra","promo.collectra.body":"管理你全部藏品的 macOS 档案库——书籍、黑胶、相机等应有尽有。Resontra 可直接导入你的藏品。",
+    "promo.collectra.cta":"了解 Collectra →",
+    "promo.fetchera.title":"Fetchera","promo.fetchera.body":"面向收藏者的 iOS 现场助手——在跳蚤市场扫码查价、避免重复购买。免费下载。",
+    "promo.fetchera.cta":"了解 Fetchera →",
+    "footer.privacy":"隐私政策","footer.contact":"联系我们"
+  }
+};
+function switchLang(lang,e){
+  document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));
+  e.target.classList.add("active");
+  apply(lang);
+}
+function apply(lang){
+  const d=T[lang];
+  document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n");if(d[k]!==undefined)el.textContent=d[k];});
+  document.querySelectorAll("[data-i18n-html]").forEach(el=>{const k=el.getAttribute("data-i18n-html");if(d[k]!==undefined)el.innerHTML=d[k];});
+}
+document.addEventListener("DOMContentLoaded",()=>apply("en"));
+function toggleNav(){document.querySelector('.nav-links').classList.toggle('open');}
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.nav-links a').forEach(function(a){
+    a.addEventListener('click',function(){document.querySelector('.nav-links').classList.remove('open');});
+  });
+});
+</script>
+</body>
+</html>
